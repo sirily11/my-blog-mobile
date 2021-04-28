@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_config/flutter_config.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:my_blog_app/models/MemoryProvider.dart';
 import 'package:my_blog_app/models/UserProvider.dart';
 import 'package:my_blog_app/pages/home/HomePage.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await FlutterConfig.loadEnvVariables();
   runApp(MyApp());
 }
 

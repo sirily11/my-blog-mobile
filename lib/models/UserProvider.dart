@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:my_blog_app/env/env.dart';
+import 'package:my_blog_app/config/config.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider with ChangeNotifier {
@@ -9,10 +9,13 @@ class UserProvider with ChangeNotifier {
 
   Future<void> login(
       {required String username, required String password}) async {
-    await EasyLoading.show();
+    if (!EasyLoading.isShow) {
+      EasyLoading.show();
+    }
+
     try {
       var dio = Dio();
-      var url = Env.base + Env.authURL;
+      var url = Config.base + Config.authURL;
       var response = await dio
           .post(url, data: {"username": username, "password": password});
 

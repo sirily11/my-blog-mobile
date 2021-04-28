@@ -1,12 +1,10 @@
 import 'package:envify/envify.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_config/flutter_config.dart';
 
-part 'env.g.dart';
-
-@Envify(path: kReleaseMode ? ".env.release" : ".env.development")
-abstract class Env {
-  /// Base URL for the fetcher
-  static const base = _Env.base;
+class Config {
+  static String base =
+      kDebugMode ? FlutterConfig.get("DBASE") : FlutterConfig.get("BASE");
   static const memoryURL = "blog/memory/";
   static const memoryImageURL = "blog/memory-image/";
   static const memoryVideoURL = "blog/memory-video/";

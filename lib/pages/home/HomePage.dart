@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:my_blog_app/models/UserProvider.dart';
 import 'package:my_blog_app/pages/account/AccountView.dart';
 import 'package:my_blog_app/pages/memory/MemoryListView.dart';
+import 'package:my_blog_app/pages/memory/addMemory/AddMemoryPage.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -9,6 +12,13 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+
+  @override
+  initState() {
+    UserProvider provider = Provider.of(context, listen: false);
+    provider.autoLogin();
+    super.initState();
+  }
 
   AppBar _renderAppbar() {
     switch (_currentIndex) {
@@ -24,6 +34,17 @@ class _HomePageState extends State<HomePage> {
       default:
         return AppBar(
           title: Text("Memory"),
+          actions: [
+            IconButton(
+              onPressed: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (c) => AddMemoryPage(),
+                ),
+              ),
+              icon: Icon(Icons.edit),
+            )
+          ],
         );
     }
   }
