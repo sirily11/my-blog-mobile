@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:my_blog_app/models/MemoryProvider.dart';
 import 'package:my_blog_app/models/UserProvider.dart';
 import 'package:my_blog_app/pages/home/HomePage.dart';
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         home: HomePage(),
+        builder: EasyLoading.init(),
       ),
     );
   }

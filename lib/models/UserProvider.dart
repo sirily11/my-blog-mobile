@@ -5,6 +5,8 @@ import 'package:my_blog_app/env/env.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class UserProvider with ChangeNotifier {
+  bool hasLogined = false;
+
   Future<void> login(
       {required String username, required String password}) async {
     await EasyLoading.show();
@@ -17,6 +19,10 @@ class UserProvider with ChangeNotifier {
       var accessToken = response.data['access'];
 
       var preference = await SharedPreferences.getInstance();
+
+      hasLogined = true;
+
+      notifyListeners();
       await preference.setString("username", username);
       await preference.setString("password", password);
       await preference.setString("access", accessToken);
@@ -30,13 +36,13 @@ class UserProvider with ChangeNotifier {
     }
   }
 
-  static Future<String> getAuthToken() async {
+  static Future<String?> getAuthToken() async {
     var preference = await SharedPreferences.getInstance();
     var token = preference.getString("access");
     if (token != null) {
       return "Bearer " + token;
     } else {
-      throw Exception("No Access Token Found");
+      return null;
     }
   }
 
